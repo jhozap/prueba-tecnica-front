@@ -6,13 +6,12 @@ import usuarioService from '../../../services/usuarioService';
 
 const CrearUsuario = () => {
 
-
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
 
     const handleCreate = async (args) => {
         try {
-            const data = await usuarioService.guardarUsuario(args, 0);
+            const data = await usuarioService.guardarUsuario(args);
             navigate('/usuarios', {
                         replace: true
                     })
@@ -20,25 +19,29 @@ const CrearUsuario = () => {
             console.log();
         }
 
-        // crearUsuario({ variables: { nombre, apellido, email, password, rol } })
-
-        // if(data) {
-
-        //     
-        // }
-
     }
 
 
     return (
-        <form onSubmit={handleSubmit(handleCreate)}>
+        <form onSubmit={handleSubmit(handleCreate)} autoComplete='off'>
+            <div className="form-group">
+                <input type="number" className='form-control mb-3' placeholder="Id" {...register("id", { required: true })} hidden />
+            </div>
             <div className="form-group">
                 <input type="text" className='form-control mb-3' placeholder="Nombre" {...register("nombre", { required: true })} />
+            </div>
+            <div className="form-group">
                 <input type="text" className='form-control mb-3' placeholder="Apellido" {...register("apellido", { required: true })} />
+            </div>
+            <div className="form-group">
                 <input type="text" className='form-control mb-3' placeholder="Email" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} />
-                <input type="password" className='form-control mb-3' placeholder="Password" {...register("password", { required: true })} />               
 
             </div>
+            <div className="form-group">
+                <input type="password" className='form-control mb-3' placeholder="Password" {...register("password", { required: true })} />
+
+            </div>
+
             <input className='btn btn-success' type="submit" />
 
         </form>

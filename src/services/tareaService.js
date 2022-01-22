@@ -10,6 +10,27 @@ const consultarTareas = async () => {
     return data;
 }
 
+const guardarTarea = async (tarea) => {
+
+    const { data } = await axios.post( `${constants.baseApi}${constants.guardarTarea}`, tarea, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    return data;
+}
+
+const eliminarTarea = async (id) => {
+    const { data } = await axios.delete( `${constants.baseApi}${constants.eliminarTarea}/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    return data;
+}
+
 export default {
-    consultarTareas
+    consultarTareas,
+    guardarTarea,
+    eliminarTarea
 }
