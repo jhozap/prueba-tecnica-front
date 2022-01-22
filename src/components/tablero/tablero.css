@@ -1,0 +1,60 @@
+.board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 5px;
+}
+
+.board section {
+    padding: 0 5px;
+    height: 90vh;
+    border-left: 1px solid rgba(54, 50, 50, 0.733);
+}
+
+.nTarea {
+    margin: 5px;
+}
+
+.eTarea {
+    margin-left: 5px;
+}
+
+section {
+    overflow-y: scroll;
+}
+
+section::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+section::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+section::-webkit-scrollbar-button:increment,section::-webkit-scrollbar-button {
+    display: none;
+} 
+
+section::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+section::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+section::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+
+.head {
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    background: #fff;
+}
+
+.space {
+    margin-bottom: 5px;
+}
