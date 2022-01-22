@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import EditarTarea from '../editar/EditarTarea';
 
@@ -11,6 +11,8 @@ const Tarea = ({ tarea, accion, handleSetAccion, handleCreate, handleLoadTareas 
         defaultValues: tarea
     });
 
+    const [index, setIndex] = useState(null);
+
     const handleEditar = () => {
         handleSetAccion("editar");
         handleCreate(false);
@@ -18,6 +20,7 @@ const Tarea = ({ tarea, accion, handleSetAccion, handleCreate, handleLoadTareas 
 
     const handleAccion = (accion) => {
         handleSetAccion(accion);
+        setIndex(null);
     }
 
     const handleUpdateTarea = async (args) => {
@@ -28,6 +31,16 @@ const Tarea = ({ tarea, accion, handleSetAccion, handleCreate, handleLoadTareas 
             handleLoadTareas();
             handleAccion("lectura");
 
+        } catch (error) {
+            console.log()
+        }
+    }
+
+    const handleDelete = async (id) => {
+        try {
+            await tareaService.eliminarTarea(id);
+            handleLoadTareas();
+            handleAccion("lectura");
         } catch (error) {
             console.log()
         }
@@ -69,7 +82,7 @@ const Tarea = ({ tarea, accion, handleSetAccion, handleCreate, handleLoadTareas 
                                     type="button"
                                     className="btn btn-secondary eTarea"
                                     title='Editar Tarea'
-                                    onClick={handleEditar}
+                                    onClick={() => {handleEditar(); setIndex(tarea.id)}}
                                 >
                                     Editar
                                 </button>
@@ -77,6 +90,7 @@ const Tarea = ({ tarea, accion, handleSetAccion, handleCreate, handleLoadTareas 
                                     type="button"
                                     className="btn btn-danger eTarea"
                                     title='Eliminar Tarea'
+                                    onClick={() => handleDelete(tarea.id)}
                                 >
                                     Eliminar
                                 </button>
@@ -87,8 +101,8 @@ const Tarea = ({ tarea, accion, handleSetAccion, handleCreate, handleLoadTareas 
                     </div>
                 </div>
             }
-            {accion === 'editar' &&
-                <EditarTarea tarea={tarea} handleAccion={handleAccion} handleLoadTareas={handleLoadTareas} />
+            {accion === 'editar' &&  index === tarea.id &&
+                <EditarTarea key={tarea.id} tarea={tarea} handleAccion={handleAccion} handleLoadTareas={handleLoadTareas} />
             }
         </>
 

@@ -4,17 +4,17 @@ import tareaService from '../../../services/tareaService';
 
 const CrearTarea = ({ handleCreate, handleLoadTareas }) => {
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm({
+        defaultValues: {
+            titulo: '',
+            descripcion: '',
+            estado: 'Nuevo'
+        }
+    });
 
     const handleCancelarAccion = (estado) => {
         handleCreate(estado);
     }
-
-    // const tarea = {
-    //     titulo: "prueba",
-    //     descripcion: "aaa",
-    //     estado: "Nuevo"
-    // }
 
     const handleCreateTarea = async (args) => {
         try {
